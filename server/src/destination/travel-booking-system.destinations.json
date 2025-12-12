@@ -1,0 +1,48 @@
+[{
+  "_id": {
+    "$oid": "690dd4c16f352f35f2b510d7"
+  },
+  "name": "Swiss Alps Adventure",
+  "country": "Switzerland",
+  "description": "Snow-capped peaks, chocolate villages & cable-car rides.",
+  "imageUrl": "https://res.cloudinary.com/dpmdpckrp/image/upload/v1762514111/travelhub/destinations/ocsjebpehzjc4xrbppwo.jpg",
+  "createdAt": {
+    "$date": "2025-11-07T11:15:13.557Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-07T11:15:13.557Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "690dd4df6f352f35f2b510da"
+  },
+  "name": "Tokyo Neon Nights",
+  "country": "Japan",
+  "description": "Shibuya crossing, robot restaurants, cherry blossoms & bullet trains.",
+  "imageUrl": "https://res.cloudinary.com/dpmdpckrp/image/upload/v1762514141/travelhub/destinations/ko8bopqvqn1y88eqqe9k.jpg",
+  "createdAt": {
+    "$date": "2025-11-07T11:15:43.398Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-07T11:15:43.398Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "690dd4fc6f352f35f2b510dd"
+  },
+  "name": "Santorini Sunset",
+  "country": "Greece",
+  "description": "Blue domes, caldera views & cliff-side infinity pools.",
+  "imageUrl": "https://res.cloudinary.com/dpmdpckrp/image/upload/v1762514170/travelhub/destinations/ebpa9iyy4ihjj6pyiooh.jpg",
+  "createdAt": {
+    "$date": "2025-11-07T11:16:12.198Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-07T11:16:12.198Z"
+  },
+  "__v": 0
+}]

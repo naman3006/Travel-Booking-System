@@ -1,0 +1,123 @@
+[{
+  "_id": {
+    "$oid": "6909db521e978fa75757ef7c"
+  },
+  "title": "Paris Getaway",
+  "destination": "690c62bd489a7bfce562cece",
+  "duration": "5 days",
+  "price": 1299,
+  "description": "Eiffel Tower, Louvre, Seine Cruise",
+  "imageUrl": "https://example.com/paris.jpg",
+  "rating": 4.8,
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-11-04T10:54:10.456Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-07T08:41:31.853Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "690c85f1154521cdfb79acba"
+  },
+  "title": "asd",
+  "destination": "690c62bd489a7bfce562cece",
+  "duration": "3",
+  "price": 23,
+  "description": "asd",
+  "imageUrl": "https://res.cloudinary.com/dpmdpckrp/image/upload/v1762428398/travelhub/destinations/jyi0guddxysld2y0szmq.png",
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-11-06T11:26:41.333Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-06T11:26:41.333Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "690dc7d81c367eaba931a0be"
+  },
+  "title": "dsw",
+  "destination": {
+    "$oid": "690c64b2489a7bfce562cf84"
+  },
+  "duration": "3",
+  "price": 43,
+  "description": "dsxc",
+  "imageUrl": "https://res.cloudinary.com/dpmdpckrp/image/upload/v1762510807/travelhub/packages/wtedsoasmcy63hahklu3.jpg",
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-11-07T10:20:08.363Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-07T10:20:08.363Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "690dd52a6f352f35f2b510e4"
+  },
+  "title": "Bali Beach & Jungle",
+  "destination": {
+    "$oid": "690dd49e6f352f35f2b510d4"
+  },
+  "duration": "5 days",
+  "price": 899,
+  "description": "Ubud rice fields + Nusa Penida day-trip + beach club.",
+  "imageUrl": "https://res.cloudinary.com/dpmdpckrp/image/upload/v1762514217/travelhub/packages/ovcr3u62kgbivm9onicp.jpg",
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-11-07T11:16:58.678Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-07T11:16:58.678Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "690dd5786f352f35f2b51104"
+  },
+  "title": "Tokyo Anime & Food Tour",
+  "destination": {
+    "$oid": "690dd4df6f352f35f2b510da"
+  },
+  "duration": "6 days",
+  "price": 1299,
+  "description": "Akihabara + Tsukiji market + Mt. Fuji day-trip.",
+  "imageUrl": "https://res.cloudinary.com/dpmdpckrp/image/upload/v1762514294/travelhub/packages/xkfuotljshy149ydoknx.jpg",
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-11-07T11:18:16.806Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-07T11:18:16.806Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "690dd5996f352f35f2b5110e"
+  },
+  "title": "Santorini Honeymoon Retreat",
+  "destination": {
+    "$oid": "690dd4fc6f352f35f2b510dd"
+  },
+  "duration": "7 days",
+  "price": 2199,
+  "description": "Private catamaran + wine tasting + caldera suite.",
+  "imageUrl": "https://res.cloudinary.com/dpmdpckrp/image/upload/v1762514327/travelhub/packages/nheoxycnsocdihpvjrax.jpg",
+  "isActive": true,
+  "createdAt": {
+    "$date": "2025-11-07T11:18:49.270Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-07T11:18:49.270Z"
+  },
+  "__v": 0
+}]
