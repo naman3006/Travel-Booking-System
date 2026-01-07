@@ -13,8 +13,13 @@ import { BookingModule } from './booking/booking.module';
 
 import { ReviewModule } from './review/review.module';
 import { PaymentModule } from './payment/payment.module';
+import { AiModule } from './ai/ai.module';
+import { EventsModule } from './events/events.module';
 import { AdminModule } from './admin/admin.module';
 import { ConfigModule } from '@nestjs/config';
+import { NotificationModule } from './notification/notification.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -25,7 +30,7 @@ import { ConfigModule } from '@nestjs/config';
 
     MongooseModule.forRoot(
       process.env.MONGO_URI ||
-        'mongodb://localhost:27017/travel-booking-system-with-sessionstorage',
+      'mongodb://localhost:27017/travel-booking-system-with-sessionstorage',
     ),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     UserModule,
@@ -37,8 +42,14 @@ import { ConfigModule } from '@nestjs/config';
     ReviewModule,
     AdminModule,
     PaymentModule,
+    AiModule,
+    NotificationModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
+    }),
   ],
   providers: [],
   controllers: [],
 })
-export class AppModule {}
+export class AppModule { }

@@ -7,6 +7,8 @@ import { BookingService } from './booking.service';
 import { BookingController } from './booking.controller';
 import { User, UserSchema } from '../user/user.schema';
 import { Package, PackageSchema } from '../package/package.schema';
+import { EventsModule } from '../events/events.module';
+import { NotificationModule } from '../notification/notification.module';
 
 @Module({
   imports: [
@@ -15,9 +17,11 @@ import { Package, PackageSchema } from '../package/package.schema';
       { name: User.name, schema: UserSchema },  // ← For population
       { name: Package.name, schema: PackageSchema },  // ← For population
     ]),
+    EventsModule,
+    NotificationModule,
   ],
   controllers: [BookingController],
   providers: [BookingService],
-  exports:[BookingService]
+  exports: [BookingService]
 })
-export class BookingModule {}
+export class BookingModule { }

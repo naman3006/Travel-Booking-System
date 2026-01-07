@@ -20,15 +20,19 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@nestjs/common": "^11.1.8",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.1.8",
     "@nestjs/jwt": "^11.0.1",
     "@nestjs/mongoose": "^11.0.3",
     "@nestjs/passport": "^11.0.5",
-    "@nestjs/platform-express": "^11.1.8",
+    "@nestjs/platform-express": "^11.1.11",
+    "@nestjs/platform-socket.io": "^11.1.11",
+    "@nestjs/serve-static": "^5.0.4",
     "@nestjs/swagger": "^11.2.1",
     "@nestjs/throttler": "^6.4.0",
+    "@nestjs/websockets": "^11.1.11",
     "@reduxjs/toolkit": "^2.10.1",
     "@stripe/stripe-js": "^8.3.0",
     "@types/bcrypt": "^6.0.0",
@@ -53,6 +57,7 @@
     "redux": "^5.0.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
+    "socket.io": "^4.8.3",
     "stripe": "^19.3.0",
     "uuid": "^13.0.0"
   },

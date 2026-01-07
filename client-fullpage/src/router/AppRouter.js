@@ -12,7 +12,7 @@ import ForgotPassword from "../pages/ForgotPassword";
 import VerifyOtp from "../pages/VerifyOtp";
 import ResetPassword from "../pages/ResetPassword";
 import Home from "../pages/Home";
-import Destinations from "../pages/Destination"; 
+import Destinations from "../pages/Destination";
 import DestinationDetail from "../pages/DestinationDetail";
 import PackageDetail from "../pages/PackageDetail";
 import Bookings from "../pages/Bookings";
@@ -21,11 +21,14 @@ import PaymentSuccess from "../pages/PaymentSuccess";
 import PaymentCancel from "../pages/PaymentCancel";
 import ReviewForm from "../pages/ReviewForm";
 import MyReviews from "../pages/MyReviews";
+import TripPlanner from "../pages/TripPlanner";
+import ProfilePage from "../pages/ProfilePage";
+import VoiceNavigation from "../components/VoiceNavigation";
 
 // Admin
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminDestinations from "../pages/admin/AdminDestinations";
-import AdminPackages from "../pages/admin/AdminPackage"; 
+import AdminPackages from "../pages/admin/AdminPackage";
 import AdminBookings from "../pages/admin/AdminBookings";
 import AdminReviewModeration from "../pages/admin/AdminReviewModeration";
 
@@ -40,6 +43,7 @@ export default function AppRouter() {
   return (
     <Router>
       <Navbar />
+      <VoiceNavigation />
       <Routes>
         {/* Public */}
         <Route path="/" element={<Home />} />
@@ -96,6 +100,16 @@ export default function AppRouter() {
         <Route path="/forgot" element={<ForgotPassword />} />
         <Route path="/verify-otp" element={<VerifyOtp />} />
         <Route path="/reset" element={<ResetPassword />} />
+
+        {/* Profile */}
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <ProfilePage />
+            </PrivateRoute>
+          }
+        />
 
         {/* Admin */}
         <Route

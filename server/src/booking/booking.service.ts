@@ -11,13 +11,17 @@ import { Booking, BookingDocument } from './booking.schema';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { Package } from '../package/package.schema';
+import { EventsGateway } from '../events/events.gateway';
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable()
 export class BookingService {
   constructor(
     @InjectModel(Booking.name) private bookingModel: Model<BookingDocument>,
     @InjectModel(Package.name) private packageModel: Model<Package>,
-  ) {}
+    private eventsGateway: EventsGateway,
+    private notificationService: NotificationService,
+  ) { }
 
   async create(userId: string, dto: CreateBookingDto) {
     const pkg = await this.packageModel.findById(dto.packageId).lean();
@@ -39,15 +43,24 @@ export class BookingService {
     const booking = new this.bookingModel({
       ...dto,
       totalAmount,
-      userId: new Types.ObjectId(userId), // FIX: Convert to ObjectId
+      userId: new Types.ObjectId(userId),
       status: 'pending',
       paymentStatus: 'pending',
     });
 
-    const saved = await booking.save(); // MUST AWAIT
-    console.log('Booking SAVED:', saved._id); // DEBUG
+    const saved = await booking.save();
+    console.log('Booking SAVED:', saved._id);
 
-    return saved.toObject(); // RETURN FULL OBJECT
+    // 🔔 Notify Admins
+    // Let's save a success notification for the user who booked.
+    await this.notificationService.create(userId, `You successfully booked ${pkg.title}!`, 'success', `/bookings/${saved._id}`);
+
+    // 🌍 Broadcast to ALL users (Social Proof)
+    this.eventsGateway.broadcastToAll('public_notification', {
+      message: `🚀 Someone just booked a trip to ${pkg.title}!`,
+    });
+
+    return saved.toObject();
   }
 
   async findByUser(userId: string) {
@@ -101,6 +114,17 @@ export class BookingService {
       .lean();
 
     if (!updated) throw new NotFoundException('Booking not found');
+
+    // 🔔 Notify User
+    const userId = (updated.userId as any)._id.toString();
+    this.eventsGateway.notifyUser(userId, 'booking_status', {
+      message: `Your booking for ${(updated.packageId as any).title} is now: ${updated.status}`,
+      status: updated.status,
+    });
+
+    // Save User Notification
+    await this.notificationService.create(userId, `Your booking status updated to ${updated.status}`, 'info', `/bookings/${id}`);
+
     return updated;
   }
   async removeBookings(id: string, requesterId: string) {
@@ -113,6 +137,16 @@ export class BookingService {
     }
 
     const deleted = await this.bookingModel.findByIdAndDelete(id);
+
+    // 🔔 Notify Admins of cancellation
+    this.eventsGateway.notifyAdmins('booking_cancelled', {
+      message: `❌ User ${requesterId} cancelled booking for ID ${id}`,
+      bookingId: id
+    });
+
+    // NOTE: We are NOT saving admin notifications to DB here because we don't have Admin IDs.
+    // In a real app we would find all admins and create a notification for each.
+
     return { message: 'Booking cancelled', deleted };
   }
 

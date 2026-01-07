@@ -7,7 +7,7 @@ export class User extends Document {
   @Prop({ required: true })
   fullName: string;
 
-  @Prop({ required: true, unique:true })
+  @Prop({ required: true, unique: true })
   email: string;
 
   @Prop({ required: true })
@@ -16,7 +16,13 @@ export class User extends Document {
   @Prop({ type: String, enum: ['user', 'admin'], default: 'user' })
   role: string;
 
-  @Prop() 
+  @Prop()
+  profilePicture: string;
+
+  @Prop()
+  bio: string;
+
+  @Prop()
   refreshToken?: string;
 
   @Prop()

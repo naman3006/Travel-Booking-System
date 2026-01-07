@@ -1,54 +1,37 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-// src/user/user.controller.ts (expand existing)
-import { Controller, Get, UseGuards, Post, Query } from '@nestjs/common';
-// ... existing imports
-import { PaymentService } from '../payment/payment.service';
-import { BookingService } from '../booking/booking.service';
-import { GetUser } from '../common/decorator/get-user.decorator';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { RolesGuard } from 'src/common/guard/role.guard';
-import { Roles } from 'src/common/decorator/role.decorator';
-import { ReviewService } from 'src/review/review.service';
+
+import { Controller, Get, Patch, UseGuards, Req, UploadedFile, UseInterceptors, Body } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { UserService } from './user.service';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 @Controller('user')
-@UseGuards(JwtAuthGuard, RolesGuard)
-@Roles('user')
 export class UserController {
-  constructor(
-    private paymentService: PaymentService, // ← Inject
-    private bookingService: BookingService, // ← Existing
-    private reviewService: ReviewService,
-  ) {}
+  constructor(private readonly userService: UserService) { }
 
+  @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@GetUser() user: any) {
-    return { message: 'Welcome to User Portal', user };
+  async getProfile(@Req() req) {
+    return this.userService.findById(req.user.userId);
   }
 
-  @Get('bookings')
-  getMyBookings(@GetUser() user: any) {
-    return this.bookingService.findByUser(user.userId);
-  }
-
-  @Get('payments') // ← User's payments in portal
-  getMyPayments(@GetUser() user: any) {
-    // Mock: Get payments for user's bookings
-    const bookings = this.bookingService.findByUser(user.userId);
-    // In real: aggregate or loop to get payments per booking
-    return this.paymentService
-      .findAll()
-      .then((payments) =>
-        payments.filter((p) => p.userId._id.toString() === user.userId),
-      );
-  }
-
-  @Get('reviews')
-  getMyReviews(@GetUser() user: any) {
-    console.log('User object:', user);
-
-    return this.reviewService.findByUserId(user.userId);
+  @UseGuards(JwtAuthGuard)
+  @Patch('profile')
+  @UseInterceptors(FileInterceptor('file', {
+    storage: diskStorage({
+      destination: './uploads/profiles',
+      filename: (req, file, cb) => {
+        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+        return `${randomName}${extname(file.originalname)}`;
+      },
+    }),
+  }))
+  async updateProfile(@Req() req, @Body() body, @UploadedFile() file: Express.Multer.File) {
+    const updateData = { ...body };
+    if (file) {
+      updateData.profilePicture = `/uploads/profiles/${file.filename}`;
+    }
+    return this.userService.update(req.user.userId, updateData);
   }
 }

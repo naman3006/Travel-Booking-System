@@ -11,7 +11,7 @@ import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(@InjectModel(User.name) private userModel: Model<User>) { }
 
   async create(
     fullName: string,
@@ -36,10 +36,12 @@ export class UserService {
     return this.userModel.findOne({ email }).exec();
   }
 
-  async findById(id: string) {
-    const user = await this.userModel.findById(id).exec();
-    if (!user) throw new NotFoundException('User not found');
-    return user;
+  async findById(id: string): Promise<User | null> {
+    return this.userModel.findById(id).select('-password').exec();
+  }
+
+  async update(id: string, updateData: any): Promise<User | null> {
+    return this.userModel.findByIdAndUpdate(id, updateData, { new: true }).select('-password').exec();
   }
 
   async setResetOtp(email: string, otpHash: string, expiresAt: Date) {

@@ -7,6 +7,7 @@ import { BookingModule } from 'src/booking/booking.module';
 
 import { UserController } from './user.controller';
 import { ReviewModule } from 'src/review/review.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -14,9 +15,12 @@ import { ReviewModule } from 'src/review/review.module';
     PaymentModule,
     BookingModule,
     ReviewModule,
+    MulterModule.register({
+      dest: './uploads',
+    }),
   ],
   providers: [UserService],
   controllers: [UserController],
   exports: [UserService],
 })
-export class UserModule {}
+export class UserModule { }
