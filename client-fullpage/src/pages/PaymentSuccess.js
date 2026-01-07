@@ -13,7 +13,9 @@ const PaymentSuccess = () => {
 
     // Optional backend verification
     if (sessionId) {
-      api.post("/payment/verify-payment", { sessionId }).catch(console.error);
+      api.post("/payments/verify", { paymentId: sessionId }).catch((err) => {
+        console.error("Payment verification failed:", err.response?.data || err.message);
+      });
     }
 
     const timer = setTimeout(() => navigate("/bookings"), 1500);

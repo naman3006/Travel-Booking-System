@@ -5,8 +5,9 @@ export class VerifyPaymentDto {
   @IsString()
   paymentId: string;
 
+  @IsOptional()
   @IsString()
-  bookingId: string;
+  bookingId?: string;
 
   @IsOptional()
   @IsEnum(['paid', 'failed'])

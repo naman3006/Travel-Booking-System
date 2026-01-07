@@ -13,7 +13,7 @@ export const startTokenRefresh = (store) => {
   }, 1000 * 60 * 60 * 23); // 23 hours
 
   const checkExpiry = () => {
-    const lastLogin = localStorage.getItem('login_time');
+    const lastLogin = sessionStorage.getItem('login_time');
     if (!lastLogin) return;
     const expiryTime = Number(lastLogin) + 24 * 60 * 60 * 1000;
     const now = Date.now();
